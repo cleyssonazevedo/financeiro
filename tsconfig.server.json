@@ -3,6 +3,7 @@
   "compilerOptions": {
     "outDir": "./out-tsc/app-server",
     "module": "commonjs",
+    "target": "ES2016",
     "types": [
       "node"
     ]

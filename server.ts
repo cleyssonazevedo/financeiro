@@ -1,4 +1,5 @@
 import 'zone.js/dist/zone-node';
+import './src/server/config/database';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
@@ -7,6 +8,10 @@ import { join } from 'path';
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync } from 'fs';
+import * as helmet from 'helmet';
+
+import { LoginController } from './src/server/controller/login.controller';
+import { UsuarioController } from './src/server/controller/usuario.controller';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
@@ -19,8 +24,21 @@ export function app() {
     bootstrap: AppServerModule,
   }));
 
+  server.enable('e-tag');
+
+  server.set('e-tag', 'strong');
   server.set('view engine', 'html');
   server.set('views', distFolder);
+
+  server.use(helmet({
+    hidePoweredBy: true,
+    ieNoOpen: true,
+    noSniff: true
+  }));
+
+  // Rotas da APP
+  server.use('/api/login', LoginController);
+  server.use('/api/usuario', UsuarioController);
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
