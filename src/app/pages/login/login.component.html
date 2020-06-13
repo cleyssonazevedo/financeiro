@@ -1,1 +1,18 @@
-Login page!
+<div class="container">
+    <div class="card card-container">
+        <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+        <p id="profile-name" class="profile-name-card"></p>
+        <form class="form-signin" [formGroup]="login" (submit)="enviar()">
+            <span id="reauth-email" class="reauth-email"></span>
+            <input type="email" class="form-control" placeholder="E-mail" required autofocus [formControlName]="'username'" [class.is-invalid]="invalid && login.get('username').invalid" [class.is-valid]="invalid && login.get('username').valid">
+            <input type="password" class="form-control" placeholder="Senha" required [formControlName]="'password'" [class.is-invalid]="invalid && login.get('password').invalid" [class.is-valid]="invalid && login.get('password').valid">
+            <div class="d-block" *ngIf="invalidHttp">
+                Usuário ou senha incorretos!
+            </div>
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Entrar</button>
+        </form>
+        <a class="forgot-password">
+            Ou cadastre-se
+        </a>
+    </div>
+</div>

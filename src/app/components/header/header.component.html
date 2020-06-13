@@ -1,7 +1,7 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
         <a class="navbar-brand" [routerLink]="'/'">
-            <img src="/assets/img/my-finance.svg" width="30" height="30" class="d-inline-block align-top" alt="My finance logo"
+            <img src="/assets/img/my-finance.svg" width="25" height="25" class="d-inline-block align-top" alt="My finance logo"
                 loading="lazy">
             My Finance
         </a>
@@ -9,11 +9,27 @@
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-    
-                <app-header-item [link]="'/'">Home</app-header-item>
-                <app-header-item [link]="'login'">Login</app-header-item>
+                <app-header-item [link]="'sobre'">Sobre nós</app-header-item>
+                <app-header-item [link]="'contato'">Contato</app-header-item>
+                
+                <ng-container *ngIf="!username; else logged">
+                    <app-header-item [link]="'login'">Login</app-header-item>
+                </ng-container>
+
+                <ng-template #logged>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ username }}</a>
+                        <div class="dropdown-menu">
+                          <a class="dropdown-item" href="#">Ver meus dados</a>
+                          <a class="dropdown-item" href="#">Another action</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#">Alterar a senha</a>
+                          <a class="dropdown-item" (click)="logoff()">Logoff</a>
+                        </div>
+                      </li>
+                </ng-template>
             </div>
         </div>
     </nav>
