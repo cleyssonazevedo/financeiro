@@ -1,0 +1,20 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+        <a class="navbar-brand" [routerLink]="'/'">
+            <img src="/assets/img/my-finance.svg" width="30" height="30" class="d-inline-block align-top" alt="My finance logo"
+                loading="lazy">
+            My Finance
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+    
+                <app-header-item [link]="'/'">Home</app-header-item>
+                <app-header-item [link]="'login'">Login</app-header-item>
+            </div>
+        </div>
+    </nav>
+</div>

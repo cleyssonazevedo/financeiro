@@ -1,0 +1,1 @@
+// Objetivo de me informar o status do site

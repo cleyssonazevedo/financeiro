@@ -1,0 +1,10 @@
+<a class="nav-item nav-link"
+    [routerLink]="link"
+    [routerLinkActive]="'active'"
+    [routerLinkActiveOptions]="{ exact: false }" 
+    
+    [class.disabled]="disabled"
+    [tabindex]="disabled ? -1 : ''"
+    [attr.aria-disabled]="disabled">
+    <ng-content></ng-content>
+</a>

@@ -1,0 +1,16 @@
+
+
+* Login
+    * POST
+
+* Usuário
+    * GET
+    * POST
+    * PUT
+    * DELETE
+
+* Despesa
+    * GET
+    * POST
+    * PUT
+    * DELETE
