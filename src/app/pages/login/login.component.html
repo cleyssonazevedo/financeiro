@@ -2,7 +2,7 @@
     <div class="card card-container">
         <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
         <p id="profile-name" class="profile-name-card"></p>
-        <form class="form-signin" [formGroup]="login" (submit)="enviar()">
+        <form class="form-signin" [formGroup]="login" (submit)="!isSended ? enviar() : null">
             <div class="form-group">
                 <input type="email" class="form-control" placeholder="E-mail" required autofocus
                     [formControlName]="'username'" [class.is-invalid]="invalid && login.get('username').invalid"
@@ -19,7 +19,10 @@
             </div>
             
             <div class="text-center"> 
-                <button class="btn btn-lg btn-primary btn-signin d-inline-block" type="submit">Entrar</button>
+                <button class="btn btn-lg btn-primary btn-signin d-inline-block" type="submit" [disabled]="isSended">
+                    <ng-container *ngIf="!isSended; else logging">Entrar</ng-container>
+                    <ng-template #logging>Tentando logar...</ng-template>
+                </button>
             </div>
         </form>
     </div>

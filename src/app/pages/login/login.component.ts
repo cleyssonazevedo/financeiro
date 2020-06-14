@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+    isSended = false;
     invalid = false;
     invalidHttp = false;
     login: FormGroup;
@@ -33,6 +34,8 @@ export class LoginComponent {
     }
 
     enviar() {
+        this.isSended = true;
+
         if (this.login.valid) {
             const { username, password } = this.login.value;
             const data = new Login(username, password);
@@ -43,14 +46,16 @@ export class LoginComponent {
                         console.log('Logged');
                         this.router.navigate(['/']);
                     },
-                    (err) =>
+                    (err) => {
                         this.toastr.error(err.message || 'Falha ao logar, tente novamente mais tarde', 'Falha', {
                             closeButton: true
-                        })
-                    );
+                        });
+                        this.isSended = false;
+                    });
 
         } else {
             this.invalid = true;
+            this.isSended = false;
         }
     }
 }
