@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/scss/bootstrap.scss';
+
 @import './app/scss/font-family.scss';
 @import './app/scss/reset.scss';
 @import './app/scss/colors.scss';
@@ -9,40 +11,6 @@
 
 body {
     overflow-x: hidden;
-}
-
-.form-group {
-    margin-bottom: 16px;
-
-    label {
-        display: inline-block;
-        margin-bottom: 8px;
-    }
-}
-
-.form-control {
-    display: block;
-    width: 100%;
-    height: 26px;
-    padding: 6px 12px;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    border-radius: .25rem;
-    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-    max-width: calc(100% - 24px); // Para não ultrapassar o 100%
-
-    &:focus {
-        color: #495057;
-        background-color: #fff;
-        border-color: #ff9910;
-        outline: 0;
-        box-shadow: 0 0 0 0.2rem rgba($color: #ff9910, $alpha: 0.25);
-    }
 }
 
 textarea.form-control {
@@ -74,3 +42,4 @@ textarea.form-control {
         height: 100%;
     }
 }
+

@@ -3,16 +3,24 @@
         <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
         <p id="profile-name" class="profile-name-card"></p>
         <form class="form-signin" [formGroup]="login" (submit)="enviar()">
-            <span id="reauth-email" class="reauth-email"></span>
-            <input type="email" class="form-control" placeholder="E-mail" required autofocus [formControlName]="'username'" [class.is-invalid]="invalid && login.get('username').invalid" [class.is-valid]="invalid && login.get('username').valid">
-            <input type="password" class="form-control" placeholder="Senha" required [formControlName]="'password'" [class.is-invalid]="invalid && login.get('password').invalid" [class.is-valid]="invalid && login.get('password').valid">
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="E-mail" required autofocus
+                    [formControlName]="'username'" [class.is-invalid]="invalid && login.get('username').invalid"
+                    [class.is-valid]="invalid && login.get('username').valid">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Senha" required [formControlName]="'password'"
+                    [class.is-invalid]="invalid && login.get('password').invalid"
+                    [class.is-valid]="invalid && login.get('password').valid">
+
+            </div>
             <div class="d-block" *ngIf="invalidHttp">
                 Usuário ou senha incorretos!
             </div>
-            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Entrar</button>
+            
+            <div class="text-center"> 
+                <button class="btn btn-lg btn-primary btn-signin d-inline-block" type="submit">Entrar</button>
+            </div>
         </form>
-        <a class="forgot-password">
-            Ou cadastre-se
-        </a>
     </div>
 </div>

@@ -18,6 +18,10 @@ $active: #ff9711;
             vertical-align: middle;
             color: $secondary;
             font-size: 20px;
+
+            strong {
+                margin-right: 5px;
+            }
         }    
     }
 
