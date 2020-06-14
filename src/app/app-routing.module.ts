@@ -5,6 +5,7 @@ import { BaseTemplateComponent } from './template/base-template/base-template.co
 import { LoginModule } from './pages/login/login.module';
 import { Page404Module } from './pages/404/page-404.module';
 import { Page500Module } from './pages/500/page-500.module';
+import { SobreModule } from './pages/sobre/sobre.module';
 
 const routes: Routes = [
   {
@@ -25,6 +26,11 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         loadChildren: () => HomeModule
+      },
+      {
+        path: 'sobre',
+        pathMatch: 'full',
+        loadChildren: () => SobreModule
       }
     ]
   },
