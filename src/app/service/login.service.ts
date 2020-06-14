@@ -34,6 +34,15 @@ export class LoginService {
         this.token = localStorage.getItem('t');
     }
 
+
+    clearData() {
+        localStorage.removeItem('u');
+        localStorage.removeItem('t');
+
+        this.username = null;
+        this.token = null;
+    }
+
     logIn(login: Login) {
         return this.http.post('/api/login', login, {
             observe: 'response'
@@ -58,6 +67,6 @@ export class LoginService {
     }
 
     logoff() {
-        this.setData(null, null);
+        this.clearData();
     }
 }

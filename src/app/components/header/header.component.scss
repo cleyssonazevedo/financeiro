@@ -1,7 +1,136 @@
-.navbar {
-    padding: 0.5rem 0;
+@import '../../scss/colors.scss';
+$active: #ff9711;
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: $primary;
+    height: 60px;
+    z-index: 100;
+    
+    .header-logo {
+        width: 200px;
+       
+        .title {
+            display: inline-block;
+            vertical-align: middle;
+            color: $secondary;
+            font-size: 20px;
+        }    
+    }
+
+    .header-menu {
+        text-align: justify;
+        width: calc(100% - 200px);
+
+        .header-element {
+            width: 100%;
+
+            .navigation {
+                .nav-item {
+                    color: $secondary;
+                    text-decoration: none;
+        
+                    &:active,
+                    &:hover {
+                        transition: 200ms color ease-in;
+                        color: $color1;
+                    }
+    
+                    &.active {
+                        color: $active;
+                    }
+                }
+        
+                ul {
+                    padding: 0px;
+                    margin: 0px;
+                    list-style: none;
+        
+                    li {
+                        display: inline;
+        
+                        a {
+                            display: inline-block;
+                            padding: 0 20px;
+                        }
+    
+                    }
+                }
+    
+                &.right {
+                    text-align: right;
+    
+                    .btn-link {
+                        outline: none;
+                        background: transparent;
+                        border-color: $active;
+                        color: $secondary;
+                        font-weight: 300;
+
+                        i {
+                            margin-right: 5px;
+                            color: $active;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Menu horizontal
+    .header-logo,
+    .header-menu,
+    .header-element {
+        display: inline-block;
+        height: 60px;
+        vertical-align: middle;
+    }
+
+    .header-element {
+        display: table;
+
+        .header-item {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    }
 }
 
-.dropdown-item {
-    cursor: pointer;
+.box-search {
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    transition: top 300ms ease-in-out;
+
+    form {
+        position: relative;
+    }
+
+    .form-control {
+        max-width: 300px;
+
+        position: absolute;
+        right: 40px;
+    }
+
+    &.active {
+        top: 65px;
+    }
+
+    .btn-search {
+        position: absolute;
+        right: 0;
+        height: 40px;
+        width: 40px;
+        z-index: 1;
+        background: transparent;
+        border-color: transparent;
+        color: $secondary;
+        cursor: pointer;
+    }
 }

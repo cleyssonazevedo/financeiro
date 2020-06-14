@@ -1,0 +1,16 @@
+
+.icon {
+    display: inline-block;
+    margin-right: 5px;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+
+    &.icon-main {
+        background-image: url('/assets/icon/my-finance.svg');
+        background-size: 20px;
+        
+        height: 20px;
+        width: 20px;
+    }
+}

@@ -1,4 +1,4 @@
-import * as crypto from 'crypto-js';
+import { SHA512 } from 'crypto-js';
 
 export class Login {
     public username: string;
@@ -9,6 +9,6 @@ export class Login {
         password: string
     ) {
         this.username = username;
-        this.password = crypto.SHA512(password).toString();
+        this.password = SHA512(password).toString();
     }
 }

@@ -1,36 +1,43 @@
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
-        <a class="navbar-brand" [routerLink]="'/'">
-            <img src="/assets/img/my-finance.svg" width="25" height="25" class="d-inline-block align-top" alt="My finance logo"
-                loading="lazy">
-            My Finance
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <app-header-item [link]="'sobre'">Sobre nós</app-header-item>
-                <app-header-item [link]="'contato'">Contato</app-header-item>
-                
-                <ng-container *ngIf="!username; else logged">
-                    <app-header-item [link]="'login'">Login</app-header-item>
-                </ng-container>
-
-                <ng-template #logged>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ username }}</a>
-                        <div class="dropdown-menu">
-                          <a class="dropdown-item" href="#">Ver meus dados</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#">Alterar a senha</a>
-                          <a class="dropdown-item" (click)="logoff()">Logoff</a>
+<div class="header">
+    <div class="container">
+        <div class="header-logo">
+            <div class="header-element">
+                <div class="header-item">
+                    <a class="d-block">
+                        <i class="icon icon-main" aria-hidden="true"></i>
+                        <div class="title">
+                            <strong>My</strong> <span class="lighten">Finance</span>
                         </div>
-                      </li>
-                </ng-template>
+                    </a>
+                </div>
             </div>
         </div>
-    </nav>
+        <div class="header-menu">
+            <div class="header-element">
+                <nav class="navigation header-item">
+                    <ul>
+                        <li>
+                            <a class="nav-item" routerLink="/sobre" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }">
+                                Sobre nós
+                            </a>
+                        </li>
+                        <li>
+                            <a class="nav-item" routerLink="/contato" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }">
+                                Contato
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <nav class="navigation header-item right">
+                    <ul>
+                        <li>
+                            
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
 </div>

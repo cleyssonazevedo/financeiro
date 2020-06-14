@@ -1,0 +1,82 @@
+@import './colors.scss';
+
+$button: #ff9910;
+$button2: rgb(240, 240, 240);
+
+.btn {
+    position: relative;
+    appearance: none;
+    height: 35px;
+    width: 200px;
+    font-weight: 400;
+    font-size: 14px;
+    z-index: 1;
+    border-width: 1px;
+    border-style: solid;
+    cursor: pointer;
+
+    &::before {
+        z-index: -1;
+        display: block;
+        content: '';
+
+        position: absolute;
+        max-width: 140px;
+        height: 35px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+
+        transition: max-width 300ms ease-in; 
+    }
+
+    &,
+    &::before {
+        border-radius: 30px;
+    }
+
+    &:hover {
+        &::before {
+            max-width: 200px;
+        }
+    }
+
+    &.btn-primary {
+        $primary-color: darken($color: $button, $amount: 5);
+
+        background-color: $primary-color;
+        color: $secondary;
+        border-color: $primary-color;
+
+        &::before {
+            background-color: $button;
+            border-color: $button;
+        }
+
+        &[disabled],
+        &:disabled,
+        &.disabled {
+            cursor: not-allowed;
+
+            &::before {
+                background-color: transparent;
+                border-color: transparent;
+            }
+        }
+    }
+
+    &.btn-secondary {
+        $primary-color: darken($color: $button2, $amount: 5);
+
+        background-color: $primary-color;
+        color: $primary;
+        border-color: $primary-color;
+
+        &:before {
+            background-color: $button2;
+            border-color: $button2;
+        }
+    }
+}
