@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 import { gerarJWT } from '../service/crypto.service';
 import { Login } from '../model/login.model';
 import { json } from 'body-parser';
@@ -7,9 +7,9 @@ const router = Router();
 
 router.route('/')
     .all(json())
-    .post((req: Request, res: Response) => {
+    .post((req, res) => {
         try {
-            const { username, password } = (req as any).body;
+            const { username, password } = req.body;
 
             console.log(username, password);
 

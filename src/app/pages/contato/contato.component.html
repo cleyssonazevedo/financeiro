@@ -1,0 +1,58 @@
+<div class="main">
+    <div class="container h-100" style="position: relative;">
+        <div class="main-body">
+            <h1>Contato</h1>
+            <h2>Caso tenha algum problema com o site ou dúvidas, nos informe que entraremos em contato o mais rápido possível.</h2>
+        </div>
+    </div>
+</div>
+
+<div class="secondary-content">
+    <div class="d-table w-100 h-100">
+        <div class="d-table-cell align-middle">
+            <div class="container">
+                <ng-container *ngIf="message === undefined || message.type !== 'success'; else successMessage">
+                    <form [formGroup]="group" ngNativeValidate (submit)="enviar($event)">
+                        <div class="form-group">
+                            <label for="nome">Seu nome</label>
+                            <input type="text" name="nome" id="nome" class="form-control" formControlName="nome">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Seu e-mail (para resposta)</label>
+                            <input type="email" name="email" id="email" class="form-control" formControlName="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="assunto">Assunto</label>
+                            <input type="text" name="assunto" id="assunto" class="form-control" required
+                                formControlName="assunto">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensagem">Mensagem</label>
+                            <textarea name="mensagem" id="mensagem" cols="30" rows="5" class="form-control" required
+                                formControlName="mensagem"></textarea>
+                        </div>
+
+                        <div class="btn-group-custom">
+                            <button type="submit" class="btn btn-primary" [disabled]="group.invalid">Enviar</button>
+                            <button type="button" class="btn btn-secondary" routerLink="/">Cancelar</button>
+                        </div>
+                        <div class="d-block error" *ngIf="message && message.type === 'error'">
+                            {{ message.message }}
+                        </div>
+                    </form>
+                </ng-container>
+
+                <ng-template #successMessage>
+                    <div class="container success">
+                        <h2>Dados Salvos</h2>
+                        <p>Aguarde que entraremos em contato com você.</p>
+                        <button type="button" class="btn btn-primary" routerLink="/">Voltar para o início</button>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

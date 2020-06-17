@@ -16,6 +16,7 @@ import * as helmet from 'helmet';
 
 import { LoginController } from './src/server/controller/login.controller';
 import { UsuarioController } from './src/server/controller/usuario.controller';
+import { ContatoController } from 'src/server/controller/contato.controller';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
@@ -43,6 +44,7 @@ export function app() {
   // Rotas da APP
   server.use('/api/login', LoginController);
   server.use('/api/usuario', UsuarioController);
+  server.use('/api/contato', ContatoController);
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });

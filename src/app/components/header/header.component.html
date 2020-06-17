@@ -16,6 +16,12 @@
             <div class="header-element">
                 <nav class="navigation header-item">
                     <ul>
+                        <li *ngIf="username">
+                            <a class="nav-item" routerLink="/financas" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{ exact: true }">
+                                Minhas finanças
+                            </a>
+                        </li>
                         <li>
                             <a class="nav-item" routerLink="/sobre" routerLinkActive="active"
                                 [routerLinkActiveOptions]="{ exact: true }">
@@ -32,12 +38,27 @@
                 </nav>
                 <nav class="navigation header-item right">
                     <ul>
-                        <li>
-                            <a class="nav-item" routerLink="/login" routerLinkActive="active"
-                                [routerLinkActiveOptions]="{ exact: true }">
+                        <ng-container *ngIf="!username; else logged">
+                            <a class="nav-item" routerLink="/login">
                                 Login
                             </a>
-                        </li>
+                        </ng-container>
+                        <ng-template #logged>
+                            <li class="nav-item" ngbDropdown>
+                                <a class="nav-link" style="cursor: pointer" ngbDropdownToggle id="navbarDropdown2"
+                                    role="button">
+                                    {{ username }}
+                                </a>
+                                <div ngbDropdownMenu aria-labelledby="navbarDropdown2"
+                                    class="dropdown-menu dropdown-menu-right">
+                                    <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Minhas finanças</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a ngbDropdownItem href="#" (click)="$event.preventDefault()">Meus dados
+                                        cadastrais</a>
+                                    <a ngbDropdownItem href="#" (click)="logoff()">Logoff</a>
+                                </div>
+                            </li>
+                        </ng-template>
                     </ul>
                 </nav>
             </div>

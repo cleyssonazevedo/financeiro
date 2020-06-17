@@ -6,6 +6,7 @@ import { LoginModule } from './pages/login/login.module';
 import { Page404Module } from './pages/404/page-404.module';
 import { Page500Module } from './pages/500/page-500.module';
 import { SobreModule } from './pages/sobre/sobre.module';
+import { ContatoModule } from './pages/contato/contato.module';
 
 const routes: Routes = [
   {
@@ -31,6 +32,11 @@ const routes: Routes = [
         path: 'sobre',
         pathMatch: 'full',
         loadChildren: () => SobreModule
+      },
+      {
+        path: 'contato',
+        pathMatch: 'full',
+        loadChildren: () => ContatoModule
       }
     ]
   },

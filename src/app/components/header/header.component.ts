@@ -7,6 +7,7 @@ import { LoginService } from 'src/app/service/login.service';
     styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+    collapse = false;
     username: string;
 
     constructor(

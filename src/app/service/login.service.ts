@@ -44,26 +44,27 @@ export class LoginService {
     }
 
     logIn(login: Login) {
-        return this.http.post('/api/login', login, {
-            observe: 'response'
-        }).pipe(
-            map((response) => {
-                switch (response.status) {
-                    case 200:
-                        // Talvez mude
-                        this.username = 'Teste';
-                        this.token = response.headers.get('authorization');
-                        return true;
+        return this.http.post('/api/login', login, { observe: 'response' })
+            .pipe(
+                map((response) => {
+                    switch (response.status) {
+                        case 200:
+                            // Talvez mude
+                            this.username = 'Teste';
+                            const auth = response.headers.get('authorization');
 
-                    case 401:
-                        throw new Error('Usuário ou senha incorretos');
+                            this.setData('Teste', auth);
+                            return true;
 
-                    default:
-                        console.error(response.body);
-                        throw new Error('Falha ao executar a requisição');
-                }
-            })
-        );
+                        case 401:
+                            throw new Error('Usuário ou senha incorretos');
+
+                        default:
+                            console.error(response.body);
+                            throw new Error('Falha ao executar a requisição');
+                    }
+                })
+            );
     }
 
     logoff() {
