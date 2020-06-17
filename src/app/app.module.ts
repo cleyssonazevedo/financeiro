@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +9,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginGuardService } from './service/login.guard.service';
+
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+import localePtExtra from '@angular/common/locales/extra/pt';
+
+registerLocaleData(localePt, 'pt', localePtExtra);
 
 @NgModule({
   declarations: [
@@ -23,7 +30,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NgbModule,
     ToastrModule.forRoot()
   ],
-  providers: [LoginService],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt' },
+    LoginService,
+    LoginGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

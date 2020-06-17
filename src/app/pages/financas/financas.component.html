@@ -1,0 +1,8 @@
+<div class="main">
+    <div class="container main-container">
+       <div class="price d-block" [class.positivo]="total > 0" [class.negativo]="total < 0">
+           <strong class="moeda">R$</strong>
+           <span class="value">{{ total | currency: '': '' }}</span>
+       </div>
+    </div>
+</div>

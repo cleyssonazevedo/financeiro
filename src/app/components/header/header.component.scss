@@ -1,4 +1,5 @@
 @import '../../scss/colors.scss';
+@import '../../scss/variables.scss';
 $active: #12DC04;
 
 .header {
@@ -7,8 +8,8 @@ $active: #12DC04;
     left: 0;
     right: 0;
     background-color: $primary;
-    height: 60px;
-    z-index: 100;
+    height: $height_menu;
+    z-index: 2000;
     
     .header-logo {
         width: 200px;

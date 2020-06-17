@@ -1,0 +1,35 @@
+@import '../../scss/colors.scss';
+@import '../../scss/variables.scss';
+
+.main {
+    min-height: calc(100vh - #{$height_menu});
+    padding-top: $height_menu;
+
+    .main-container {
+        padding-top: 100px;
+    }
+
+    .price {
+        &.positivo {
+            color: #3ACA04;
+        }
+
+        &.negativo {
+            color: #E30505;
+
+            .moeda::before {
+                content: '-';
+                display: inline;
+            }
+        }
+
+        .moeda {
+            font-size: 60px;
+            margin-right: 10px;
+        }
+
+        .value {
+            font-size: 50px;
+        }
+    }
+}

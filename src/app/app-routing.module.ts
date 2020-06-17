@@ -7,6 +7,8 @@ import { Page404Module } from './pages/404/page-404.module';
 import { Page500Module } from './pages/500/page-500.module';
 import { SobreModule } from './pages/sobre/sobre.module';
 import { ContatoModule } from './pages/contato/contato.module';
+import { FinancasModule } from './pages/financas/financas.module';
+import { LoginGuardService } from './service/login.guard.service';
 
 const routes: Routes = [
   {
@@ -37,6 +39,11 @@ const routes: Routes = [
         path: 'contato',
         pathMatch: 'full',
         loadChildren: () => ContatoModule
+      },
+      {
+        path: 'financas',
+        canActivate: [ LoginGuardService ],
+        loadChildren: () => FinancasModule
       }
     ]
   },
