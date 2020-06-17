@@ -116,7 +116,8 @@
 }
 
 .secondary-content {
-    height: 100vh;
+    min-height: 100vh;
+    padding: 100px 0;
 
     .text-subtitle {
         display: block;
