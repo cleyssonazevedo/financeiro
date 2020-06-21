@@ -9,6 +9,7 @@ import { SobreModule } from './pages/sobre/sobre.module';
 import { ContatoModule } from './pages/contato/contato.module';
 import { FinancasModule } from './pages/financas/financas.module';
 import { LoginGuardService } from './service/login.guard.service';
+import { CadastroUsuarioModule } from './pages/cadastro-usuario/cadastro-usuario.module';
 
 const routes: Routes = [
   {
@@ -44,6 +45,16 @@ const routes: Routes = [
         path: 'financas',
         canActivate: [ LoginGuardService ],
         loadChildren: () => FinancasModule
+      },
+      {
+        path: 'usuario',
+        children: [
+          {
+            path: 'cadastro',
+            pathMatch: 'full',
+            loadChildren: () => CadastroUsuarioModule
+          }
+        ]
       }
     ]
   },
@@ -55,9 +66,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    initialNavigation: 'enabled'
-})],
+  imports: [
+    RouterModule.forRoot(routes, {
+      initialNavigation: 'enabled',
+      onSameUrlNavigation: 'reload'
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

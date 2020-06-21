@@ -3,9 +3,9 @@ import { json } from 'body-parser';
 import { Save } from '../service/contato.service';
 
 const router = Router();
+router.use(json());
 
 router.route('/')
-    .all(json())
     .post(async (req, res) => {
         try {
             await Save(req.body);

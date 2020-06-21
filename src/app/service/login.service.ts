@@ -44,19 +44,19 @@ export class LoginService {
     }
 
     logIn(login: Login) {
-        return this.http.post('/api/login', login, { observe: 'response' })
+        return this.http.post<{ username: string }>('/api/login', login, { observe: 'response' })
             .pipe(
                 map((response) => {
                     switch (response.status) {
                         case 200:
-                            // Talvez mude
-                            this.username = 'Teste';
-                            const auth = response.headers.get('authorization');
+                            const { username } = response.body;
+                            const token = response.headers.get('authorization');
 
-                            this.setData('Teste', auth);
+                            this.setData(username, token);
                             return true;
 
                         case 401:
+                            this.clearData();
                             throw new Error('Usuário ou senha incorretos');
 
                         default:

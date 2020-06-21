@@ -1,17 +1,36 @@
 import { Router, Request, Response } from 'express';
-import { create } from '../service/login.service';
+import { create } from '../service/usuario.service';
 import { json } from 'body-parser';
+import { DuplicateException } from '../exception/duplicate.exception';
+import { gerarJWT } from '../service/crypto.service';
 
 const router = Router();
+router.use(json());
 
 router.route('/')
-    .all(json())
     .post(async (req: Request, res: Response) => {
         try {
-            const { email, password } = (req as any).body;
+            const { username, email, password } = (req as any).body;
 
-            const { id } = await create(email, password);
-            res.status(201).end();
+            try {
+                const data = await create(username, email, password);
+                const token = gerarJWT({
+                    id: data.id,
+                    email: data.email,
+                    username
+                });
+
+                res.set('Authorization', token);
+                res.status(201).end();
+            } catch (e) {
+                if (encodeURI instanceof DuplicateException) {
+                    res.status(409).send();
+                } else {
+                    res.status(500).send({
+                        message: e.message || 'Erro não especificado'
+                    });
+                }
+            }
         } catch (error) {
             res.status(400).send({
                 message: error.message || 'Erro não especificado'

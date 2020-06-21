@@ -1,9 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Financa } from 'src/app/models/financa';
 import { DaterangepickerComponent } from 'ng2-daterangepicker';
 import * as moment from 'moment';
 import { Router, ActivatedRoute } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
+import { FinancasService } from 'src/app/service/financas.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-financas',
@@ -11,56 +14,26 @@ import { Router, ActivatedRoute } from '@angular/router';
     styleUrls: ['./financas.component.scss']
 })
 export class FinancasComponent {
+    isBrowser = false;
     @ViewChild(DaterangepickerComponent)
     private picker: DaterangepickerComponent;
 
     modalItem: Financa;
 
-    total = 4230.30 - 250 - 100 - 180 - 600;
-    financas: Financa[] = [
-        {
-            title: 'Salário',
-            valor: 4230.00,
-            tipo: 0
-        },
-        {
-            title: 'Conta de Luz',
-            vencimento: '20/06/2020',
-            valor: 250.00,
-            tipo: 1,
-            status: 2,
-            anexo: '/api/download/38120983912038'
-        },
-        {
-            title: 'Conta de Água',
-            vencimento: '05/06/2020',
-            valor: 100.00,
-            tipo: 1,
-            status: 1
-        },
-        {
-            title: 'Conta de Telefone',
-            vencimento: '05/06/2020',
-            valor: 180.00,
-            tipo: 1,
-            status: 0
-        },
-        {
-            title: 'Prestação carro',
-            vencimento: '20/06/2020',
-            valor: 600.00,
-            tipo: 1,
-            status: 2
-        },
-    ];
+    total: number;
+    financas: Financa[];
 
     options: any;
 
     constructor(
+        private readonly api: FinancasService,
+        private readonly toastr: ToastrService,
         private readonly modal: NgbModal,
         private readonly router: Router,
-        readonly route: ActivatedRoute
+        readonly route: ActivatedRoute,
+        @Inject(PLATFORM_ID) platformId: string
     ) {
+        this.isBrowser = isPlatformBrowser(platformId);
         route.queryParams.subscribe((params) => {
             if (params.startDate && params.endDate) {
                 const startDate = moment(params.startDate, 'DD-MM-YYYY');
@@ -114,6 +87,18 @@ export class FinancasComponent {
                 }
             } else {
                 this.options = this.defaultDate();
+            }
+        });
+
+        route.data.subscribe(({ financa }) => {
+            console.log('Callable');
+
+            if (financa) {
+                this.total = financa.total;
+                this.financas = financa.financas;
+            } else {
+                this.total = 0;
+                this.financas = null;
             }
         });
     }
@@ -176,8 +161,16 @@ export class FinancasComponent {
     }
 
     excluir() {
-        this.financas = this.financas.filter((item) => item !== this.modalItem);
         this.modal.dismissAll();
+        this.api.delete(this.modalItem.id)
+            .subscribe((response) => {
+                if (response) {
+                    this.toastr.success('Lançamento removido!', this.modalItem.title);
+                    this.router.navigate(['/financas']);
+                } else {
+                    this.toastr.error('Lançamento não encontrado!', this.modalItem.title);
+                }
+            }, (err) => this.toastr.error(err.message, 'Falha ao acessar a aplicação'));
     }
 
     selectedDate({ start, end }: { start: moment.Moment, end: moment.Moment}) {

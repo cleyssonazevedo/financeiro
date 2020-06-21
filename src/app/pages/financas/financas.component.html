@@ -1,9 +1,9 @@
-<div class="main">
+<div class="main" *ngIf="isBrowser">
   <div class="container main-container">
     <div class="d-block">
       <div class="price-main d-inline-block w-50" [class.positivo]="total > 0" [class.negativo]="total < 0">
         <strong class="moeda">R$</strong>
-        <span class="value">{{ total | currency: '': '' }}</span>
+        <span class="value">{{ (total || 0) | currency: '': '' }}</span>
       </div>
 
       <div class="text-right d-inline-block w-50">

@@ -14,10 +14,12 @@ $negativo: #E30505;
         .price-main {
             &.positivo {
                 color: $positivo;
+                text-shadow: 1px 1px darken($color: $positivo, $amount: 20);
             }
-    
+
             &.negativo {
                 color: $negativo;
+                text-shadow: 1px 1px darken($color: $negativo, $amount: 20);
             }
     
             .moeda {

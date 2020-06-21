@@ -7,6 +7,7 @@ import { NgbModalModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap'
 import { FormsModule } from '@angular/forms';
 import { Daterangepicker } from 'ng2-daterangepicker';
 import { FinancasResolverService } from './financas-resolver.service';
+import { FinancasService } from 'src/app/service/financas.service';
 
 @NgModule({
     declarations: [ FinancasComponent ],
@@ -23,8 +24,9 @@ import { FinancasResolverService } from './financas-resolver.service';
             {
                 path: '',
                 component: FinancasComponent,
+                runGuardsAndResolvers: 'always',
                 resolve: {
-                    date: FinancasResolverService
+                    financa: FinancasResolverService
                 }
             }
         ])
@@ -34,7 +36,8 @@ import { FinancasResolverService } from './financas-resolver.service';
             provide: DEFAULT_CURRENCY_CODE,
             useValue: 'BRL'
         },
-        FinancasResolverService
+        FinancasResolverService,
+        FinancasService
     ]
 })
 export class FinancasModule {  }
