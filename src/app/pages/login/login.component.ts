@@ -4,6 +4,7 @@ import { Login } from 'src/app/models/login';
 import { LoginService } from 'src/app/service/login.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-login',
@@ -42,15 +43,22 @@ export class LoginComponent {
 
             this.service.logIn(data)
                 .subscribe(
-                    () => {
-                        console.log('Logged');
-                        this.router.navigate(['/']);
-                    },
+                    () => this.router.navigate(['/']),
                     (err) => {
-                        this.toastr.error(err.message || 'Falha ao logar, tente novamente mais tarde', 'Falha', {
-                            closeButton: true
-                        });
-                        this.isSended = false;
+                        console.error(err);
+                        this.login.get('password').setValue(null);
+
+                        if (err instanceof HttpErrorResponse) {
+                            this.toastr.error(err.error.message || 'Falha ao logar, tente novamente mais tarde', 'Falha', {
+                                closeButton: true
+                            });
+                            this.isSended = false;
+                        } else {
+                            this.toastr.error(err.message || 'Falha ao logar, tente novamente mais tarde', 'Falha', {
+                                closeButton: true
+                            });
+                            this.isSended = false;
+                        }
                     });
 
         } else {
