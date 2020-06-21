@@ -39,6 +39,7 @@
     "moment": "2.27.0",
     "mongodb-client-encryption": "1.0.1",
     "mongoose": "5.9.18",
+    "ng2-daterangepicker": "3.0.1",
     "ngx-toastr": "12.1.0",
     "popper.js": "1.16.1",
     "rxjs": "~6.5.4",
@@ -72,16 +73,20 @@
     "tslint": "~6.1.0",
     "typescript": "~3.8.3"
   },
+  "peerDependencies": {
+    "@types/jquery": "^3.2.12",
+    "jquery": "^3.2.1"
+  },
   "browser": {
-		"fs": false,
-		"path": false,
-		"os": false,
-		"crypto": false,
-		"stream": false,
-		"http": false,
-		"tls": false,
-		"zlib": false,
-		"https": false,
-		"net": false
-	}
+    "fs": false,
+    "path": false,
+    "os": false,
+    "crypto": false,
+    "stream": false,
+    "http": false,
+    "tls": false,
+    "zlib": false,
+    "https": false,
+    "net": false
+  }
 }

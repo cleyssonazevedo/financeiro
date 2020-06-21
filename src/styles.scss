@@ -9,67 +9,66 @@
 @import './app/scss/buttons';
 
 body {
-    overflow-x: hidden;
-    width: 100vw;
+  overflow-x: hidden;
+  width: 100vw;
 }
 
 textarea.form-control {
-    height: auto;
+  height: auto;
 }
 
 .modal {
-    .modal-header {
-        max-height: 56px;
+  .modal-header {
+      max-height: 56px;
 
-        .modal-title {
-            line-height: 23px;
-        }
+      .modal-title {
+          line-height: 23px;
+      }
 
-        .close {
-            outline: none !important;
-    
-            &:hover {
-                color: red;
-            }
-        }
-    }
+      .close {
+          outline: none !important;
+  
+          &:hover {
+              color: red;
+          }
+      }
+  }
 
-    .modal-footer {
-        border-top: transparent;
-    }
+  .modal-footer {
+    border-top: transparent;
+  }
 }
 
 ngb-datepicker-navigation {
-    .btn {
-        &:focus {
-            box-shadow: none;
-        }
+  .btn {
+    &:focus {
+      box-shadow: none;
     }
+  }
 }
 
 /*Edge*/
 @supports ( -ms-accelerator:true ) 
 {
-    html{
-        overflow: hidden;
-        height: 100%;    
-    }
-    body{
-        overflow: auto;
-        height: 100%;
-    }
+  html{
+    overflow: hidden;
+    height: 100%;    
+  }
+  body{
+    overflow: auto;
+    height: 100%;
+  }
 }
 
 /*Ie 10/11*/
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) 
 {
-    html{
-        overflow: hidden;
-        height: 100%;    
-    }
-    body{
-        overflow: auto;
-        height: 100%;
-    }
+  html{
+    overflow: hidden;
+    height: 100%;    
+  }
+  body{
+    overflow: auto;
+    height: 100%;
+  }
 }
-

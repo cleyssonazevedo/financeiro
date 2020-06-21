@@ -3,7 +3,7 @@
 $button: #065B00;
 $button2: rgb(240, 240, 240);
 
-.btn {
+.btn:not(.applyBtn) {
     position: relative;
     appearance: none;
     height: 35px;

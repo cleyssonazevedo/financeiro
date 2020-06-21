@@ -7,32 +7,10 @@
       </div>
 
       <div class="text-right d-inline-block w-50">
-        <!-- <button type="button" class="btn btn-link" #filtroData>
+        <button type="button" class="btn btn-link" daterangepicker [options]="options" (selected)="selectedDate($event)">
           <i class="fa fa-filter" aria-hidden="true"></i>
           Filtrar por data
-        </button> -->
-
-        <form>
-          <div class="form-group">
-            <div class="input-group">
-              <input
-                class="form-control range"
-                placeholder="dd/mm/yyyy ~ dd/mm/yyyy"
-                name="dp"
-                ngbDatepicker
-                #d="ngbDatepicker"
-                [displayMonths]="2"
-                outsideDays="hidden"
-                [positionTarget]="buttonEl">
-              <div class="input-group-append">
-                <button #buttonEl class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
-                  <i class="fa fa-filter" aria-hidden="true"></i>
-                  Filtrar por data
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
+        </button>
         
       </div>
     </div>
