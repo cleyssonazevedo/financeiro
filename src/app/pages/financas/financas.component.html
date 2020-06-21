@@ -1,8 +1,133 @@
 <div class="main">
-    <div class="container main-container">
-       <div class="price d-block" [class.positivo]="total > 0" [class.negativo]="total < 0">
-           <strong class="moeda">R$</strong>
-           <span class="value">{{ total | currency: '': '' }}</span>
-       </div>
+  <div class="container main-container">
+    <div class="d-block">
+      <div class="price-main d-inline-block w-50" [class.positivo]="total > 0" [class.negativo]="total < 0">
+        <strong class="moeda">R$</strong>
+        <span class="value">{{ total | currency: '': '' }}</span>
+      </div>
+
+      <div class="text-right d-inline-block w-50">
+        <!-- <button type="button" class="btn btn-link" #filtroData>
+          <i class="fa fa-filter" aria-hidden="true"></i>
+          Filtrar por data
+        </button> -->
+
+        <form>
+          <div class="form-group">
+            <div class="input-group">
+              <input
+                class="form-control range"
+                placeholder="dd/mm/yyyy ~ dd/mm/yyyy"
+                name="dp"
+                ngbDatepicker
+                #d="ngbDatepicker"
+                [displayMonths]="2"
+                outsideDays="hidden"
+                [positionTarget]="buttonEl">
+              <div class="input-group-append">
+                <button #buttonEl class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                  <i class="fa fa-filter" aria-hidden="true"></i>
+                  Filtrar por data
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+        
+      </div>
     </div>
+
+    <div class="jumbotron">
+      <ng-container *ngIf="financas && financas.length > 0; else semFinancasCadastradas">
+        <div class="list-group">
+          <a *ngFor="let item of financas" class="list-group-item list-group-item-action"
+            (click)="openModal(item, modalTemplate)" [class.cursor-pointer]="item.tipo === 1"
+            [class.list-group-item-danger]="item.status === 1" [class.list-group-item-success]="item.status === 0"
+            [class.list-group-item-primary]="item.status === 2">
+            
+            <div class="d-flex w-100 justify-content-between header">
+              <h5 class="mb-1">{{ item.title }}</h5>
+              <p class="price">{{ item.valor | currency }}</p>
+            </div>
+            
+            <p class="mb-1 body">
+              <span *ngIf="item.status" class="d-block"><strong>Status:</strong> {{ item.status | status }}</span>
+              <span *ngIf="item.vencimento"><strong>Vencimento:</strong> {{ item.vencimento }}</span>
+            </p>
+
+            <div class="footer">
+              <div class="d-inline-block w-50">
+                <strong>Tipo:</strong> {{ item.tipo | tipo }}
+              </div>
+
+              <div class="d-inline-block w-50 text-right" *ngIf="item.anexo">
+                <span class="btn-anexo">
+                  <i class="fa fa-paperclip" aria-hidden="true"></i>
+                  Lançamento com anexo
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </ng-container>
+      <ng-template #semFinancasCadastradas>
+        <p class="text-center">Sem finanças cadastradas</p>
+      </ng-template>
+    </div>
+
+    <div class="text-right">
+      <button type="button" class="btn btn-primary">Adicionar item</button>
+    </div>
+  </div>
 </div>
+
+<ng-template #modalTemplate>
+  <ng-container *ngIf="modalItem">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{ modalItem.title }}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <span class="d-block"><strong>Vencimento: </strong> {{ modalItem.vencimento }}</span>
+      <span class="d-block"><strong>Valor: </strong> {{ modalItem.valor | currency }}</span>
+    </div>
+
+    <div class="modal-footer justify-content-center">
+      <div class="btn-footer">
+        <button type="button" class="btn btn-outline-danger" (click)="openModalConfirm(excluirConta)">Excluir</button>
+        <button type="button" class="btn btn-outline-primary">Download</button>
+        <button type="button" class="btn btn-outline-success" (click)="closeModal()">Fechar</button>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+
+<ng-template #excluirConta>
+  <ng-container *ngIf="modalItem">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Deseja excluir a {{ modalItem.title }}?</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <p><strong>Você tem certeza que deseja excluir o lançamento <span
+            class="text-primary">"{{ modalItem.title }}"</span>?</strong></p>
+      <p>Toda a informação sobre esse lançamento será permanentemente excluído.
+        <span class="text-danger d-block">Essa operação não pode ser desfeita.</span>
+      </p>
+    </div>
+
+    <div class="modal-footer justify-content-center">
+      <div class="btn-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeModal()">Não</button>
+        <button type="button" class="btn btn-danger" (click)="excluir()">Sim</button>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>

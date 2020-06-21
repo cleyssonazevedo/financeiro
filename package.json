@@ -28,6 +28,7 @@
     "@nguniversal/express-engine": "^9.1.1",
     "body-parser": "1.19.0",
     "bootstrap": "4.5.0",
+    "crypto": "1.0.1",
     "crypto-js": "4.0.0",
     "env-cmd": "10.1.0",
     "express": "^4.15.2",
@@ -35,6 +36,7 @@
     "helmet": "3.23.0",
     "jquery": "3.5.1",
     "jsonwebtoken": "8.5.1",
+    "moment": "2.27.0",
     "mongodb-client-encryption": "1.0.1",
     "mongoose": "5.9.18",
     "ngx-toastr": "12.1.0",
@@ -69,5 +71,17 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.8.3"
-  }
+  },
+  "browser": {
+		"fs": false,
+		"path": false,
+		"os": false,
+		"crypto": false,
+		"stream": false,
+		"http": false,
+		"tls": false,
+		"zlib": false,
+		"https": false,
+		"net": false
+	}
 }

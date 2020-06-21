@@ -1,35 +1,86 @@
 @import '../../scss/colors.scss';
 @import '../../scss/variables.scss';
 
+$positivo: #3ACA04;
+$negativo: #E30505;
+
 .main {
     min-height: calc(100vh - #{$height_menu});
     padding-top: $height_menu;
 
     .main-container {
         padding-top: 100px;
-    }
 
-    .price {
-        &.positivo {
-            color: #3ACA04;
-        }
-
-        &.negativo {
-            color: #E30505;
-
-            .moeda::before {
-                content: '-';
-                display: inline;
+        .price-main {
+            &.positivo {
+                color: $positivo;
+            }
+    
+            &.negativo {
+                color: $negativo;
+            }
+    
+            .moeda {
+                font-size: 60px;
+                margin-right: 10px;
+            }
+    
+            .value {
+                font-size: 50px;
             }
         }
+    }
 
-        .moeda {
-            font-size: 60px;
-            margin-right: 10px;
+    .jumbotron {
+        max-height: 450px;
+        overflow: auto;
+
+        .list-group {
+            .list-group-item {
+                .header {
+                    .price {
+                        font-size: 16px;
+
+                        &.positivo {
+                            color: $positivo;
+                        }
+                
+                        &.negativo {
+                            color: $negativo;
+                        }
+                    }
+                }
+
+                .body {
+                    font-size: 13px;
+                }
+
+                .footer {
+                    font-size: 80%;
+                    margin-top: 15px;
+
+                    .btn-anexo {
+                        &,
+                        & i {
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
         }
+    }
 
-        .value {
-            font-size: 50px;
+    .cursor-pointer {
+        cursor: pointer;
+    }
+}
+
+.btn-footer {
+    .btn {
+        margin-right: 15px;
+
+        &:last-of-type {
+            margin-right: 0;
         }
     }
 }
