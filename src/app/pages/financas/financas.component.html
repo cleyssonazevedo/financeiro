@@ -11,7 +11,6 @@
           <i class="fa fa-filter" aria-hidden="true"></i>
           Filtrar por data
         </button>
-        
       </div>
     </div>
 
@@ -20,8 +19,9 @@
         <div class="list-group">
           <a *ngFor="let item of financas" class="list-group-item list-group-item-action"
             (click)="openModal(item, modalTemplate)" [class.cursor-pointer]="item.tipo === 1"
-            [class.list-group-item-danger]="item.status === 1" [class.list-group-item-success]="item.status === 0"
-            [class.list-group-item-primary]="item.status === 2">
+            [class.list-group-item-success]="item.status === 1"
+            [class.list-group-item-danger]="item.status === 2"
+            [class.list-group-item-primary]="item.status === 3">
             
             <div class="d-flex w-100 justify-content-between header">
               <h5 class="mb-1">{{ item.title }}</h5>
@@ -54,7 +54,7 @@
     </div>
 
     <div class="text-right">
-      <button type="button" class="btn btn-primary">Adicionar item</button>
+      <button type="button" class="btn btn-primary" (click)="novaFinanca(modalNovaFinanca)">Adicionar item</button>
     </div>
   </div>
 </div>
@@ -77,7 +77,7 @@
       <div class="btn-footer">
         <button type="button" class="btn btn-outline-danger" (click)="openModalConfirm(excluirConta)">Excluir</button>
         <button type="button" class="btn btn-outline-primary">Download</button>
-        <button type="button" class="btn btn-outline-success" (click)="closeModal()">Fechar</button>
+        <button type="button" class="btn btn-outline-success" (click)="closeModal()">Marcar como pago</button>
       </div>
     </div>
   </ng-container>
@@ -105,6 +105,63 @@
       <div class="btn-footer">
         <button type="button" class="btn btn-outline-secondary" (click)="closeModal()">Não</button>
         <button type="button" class="btn btn-danger" (click)="excluir()">Sim</button>
+      </div>
+    </div>
+  </ng-container>
+</ng-template>
+
+<ng-template #modalNovaFinanca>
+  <ng-container *ngIf="lancamento">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Novo lançamento</h4>
+      <button type="button" class="close" aria-label="Close" (click)="cancelarModalFinanca()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  
+    <div class="modal-body">
+      <form (submit)="novoLancamento()" [formGroup]="lancamento">
+        <div class="form-group">
+          <label for="title">Título</label>
+          <input type="text" name="title" id="title" class="form-control" formControlName="title">
+        </div>
+
+        <div class="form-group">
+          <label for="valor">Valor</label>
+          <input type="text" name="valor" id="valor" class="form-control" formControlName="valor">
+        </div>
+
+        <div class="form-group">
+          <label class="d-block">Tipo</label>
+
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="tipo" name="tipo" [value]="1" formControlName="tipo">
+            <label class="form-check-label" for="debito">Débito</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="tipo" name="tipo" [value]="0" formControlName="tipo">
+            <label class="form-check-label" for="credito">Crédito</label>
+          </div>
+        </div>
+        
+        <ng-container *ngIf="lancamento.get('tipo').value === 0">
+          <div class="form-group">
+            <label for="vencimento">Data de vencimento</label>
+            <input type="date" name="vencimento" id="vencimento" class="form-control" formControlName="vencimento">
+          </div>
+
+          <div class="form-group">
+            <label for="anexo">Arquivo anexo (Foto da conta em jpg ou png com menos de 5MB)</label>
+            <input type="file" class="form-control-file" id="anexo" accept="image/jpg,image/png">
+          </div>
+        </ng-container>
+      </form>
+    </div>
+  
+    <div class="modal-footer justify-content-center">
+      <div class="btn-footer">
+        <button type="button" class="btn btn-outline-secondary" (click)="cancelarModalFinanca()">Cancelar</button>
+        <button type="submit" class="btn btn-outline-primary" [class.disabled]="this.lancamento.valid">Salvar</button>
       </div>
     </div>
   </ng-container>

@@ -2,9 +2,11 @@ import { Router } from 'express';
 import { json } from 'body-parser';
 import * as moment from 'moment';
 import { getFinancas, removeFinanca } from '../service/financas.service';
+import { TokenMiddleware } from '../middleware/token.middleware';
 
 const router = Router();
 router.use(json());
+router.use(TokenMiddleware);
 
 router.route('/')
     .get(async (req, res) => {

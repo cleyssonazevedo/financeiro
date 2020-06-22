@@ -9,6 +9,8 @@ export class LoginGuardService implements CanActivate {
     ) {  }
 
     canActivate() {
+        console.log('Can Activated');
+        console.log('Token', this.service.token);
         return this.service.token !== null;
     }
 }

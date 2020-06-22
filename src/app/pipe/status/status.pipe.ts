@@ -5,11 +5,11 @@ export class StatusPipe implements PipeTransform {
 
     transform(value: number) {
         switch (value) {
-            case 0:
-                return 'Pago';
             case 1:
-                return 'Vencido';
+                return 'Pago';
             case 2:
+                return 'Vencido';
+            case 3:
                 return 'Em dia';
 
             default:

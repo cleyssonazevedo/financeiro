@@ -23,9 +23,13 @@ export class LoginService {
 
     setData(username: string, token: string) {
         localStorage.setItem('u', username);
-        localStorage.setItem('t', token);
-
         this.username = username;
+
+        this.setToken(token);
+    }
+
+    setToken(token: string) {
+        localStorage.setItem('t', token);
         this.token = token;
     }
 

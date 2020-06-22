@@ -4,7 +4,7 @@ import { FinancasComponent } from './financas.component';
 import { RouterModule } from '@angular/router';
 import { DatexModule, TipoModule, StatusModule } from 'src/app/pipe';
 import { NgbModalModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Daterangepicker } from 'ng2-daterangepicker';
 import { FinancasResolverService } from './financas-resolver.service';
 import { FinancasService } from 'src/app/service/financas.service';
@@ -19,6 +19,7 @@ import { FinancasService } from 'src/app/service/financas.service';
         NgbModalModule,
         NgbDatepickerModule,
         FormsModule,
+        ReactiveFormsModule,
         Daterangepicker,
         RouterModule.forChild([
             {

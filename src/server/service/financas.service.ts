@@ -14,7 +14,7 @@ let financasData: any[] = [
         vencimento: '20/06/2020',
         valor: 250.00,
         tipo: 1,
-        status: 2,
+        status: 3,
         anexo: '/api/download/38120983912038'
     },
     {
@@ -23,7 +23,7 @@ let financasData: any[] = [
         vencimento: '05/06/2020',
         valor: 100.00,
         tipo: 1,
-        status: 1
+        status: 2
     },
     {
         id: 'djsalmcdkajdik',
@@ -31,7 +31,7 @@ let financasData: any[] = [
         vencimento: '05/06/2020',
         valor: 180.00,
         tipo: 1,
-        status: 0
+        status: 1
     },
     {
         id: 'djklsadjklasxj8',
@@ -39,7 +39,7 @@ let financasData: any[] = [
         vencimento: '20/06/2020',
         valor: 600.00,
         tipo: 1,
-        status: 2
+        status: 3
     },
 ];
 

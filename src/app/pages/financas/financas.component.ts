@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { FinancasService } from 'src/app/service/financas.service';
 import { ToastrService } from 'ngx-toastr';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
     selector: 'app-financas',
@@ -24,12 +25,14 @@ export class FinancasComponent {
     financas: Financa[];
 
     options: any;
+    lancamento: FormGroup;
 
     constructor(
         private readonly api: FinancasService,
         private readonly toastr: ToastrService,
         private readonly modal: NgbModal,
         private readonly router: Router,
+        private readonly builder: FormBuilder,
         readonly route: ActivatedRoute,
         @Inject(PLATFORM_ID) platformId: string
     ) {
@@ -91,8 +94,6 @@ export class FinancasComponent {
         });
 
         route.data.subscribe(({ financa }) => {
-            console.log('Callable');
-
             if (financa) {
                 this.total = financa.total;
                 this.financas = financa.financas;
@@ -180,5 +181,28 @@ export class FinancasComponent {
         this.router.navigate(['/financas'], {
             queryParams: { startDate, endDate }
         });
+    }
+
+    novaFinanca(modal) {
+        this.lancamento = this.builder.group({
+            title: [null, Validators.required],
+            tipo: [null, Validators.required],
+            valor: [null, Validators.required],
+            vencimento: [null]
+        });
+
+        this.modal.open(modal, {
+            centered: true,
+            size: 'lg'
+        });
+    }
+
+    cancelarModalFinanca() {
+        this.lancamento = null;
+        this.modal.dismissAll();
+    }
+
+    novoLancamento() {
+        console.log('Lancamento', this.lancamento.value);
     }
 }

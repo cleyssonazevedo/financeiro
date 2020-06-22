@@ -1,5 +1,4 @@
 import { sign, verify, SignOptions } from 'jsonwebtoken';
-import { Login } from '../model/usuario.model';
 
 const { SECRET_KEY } = process.env;
 const options: SignOptions = {
@@ -16,5 +15,5 @@ export function gerarJWT(obj: { id: string, email: string, username: string }) {
 }
 
 export function validarToken(token: string) {
-    return verify(token, SECRET_KEY as string, options);
+    return verify(token, SECRET_KEY as string, options) as { id: string, email: string, username: string };
 }
