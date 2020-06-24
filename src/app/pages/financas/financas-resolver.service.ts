@@ -10,8 +10,12 @@ export class FinancasResolverService implements Resolve<any> {
     ) {  }
 
     resolve(route: ActivatedRouteSnapshot) {
-        const startDate = route.params.startDate || moment().startOf('month').format('DD-MM-YYYY');
-        const endDate = route.params.endDate || moment().endOf('month').format('DD-MM-YYYY');
+        return this.getData(route.params.startDate, route.params.endDate);
+    }
+
+    getData(start: string, end: string) {
+        const startDate = start || moment().startOf('month').format('DD-MM-YYYY');
+        const endDate = end || moment().endOf('month').format('DD-MM-YYYY');
 
         return this.financas.get(startDate, endDate);
     }

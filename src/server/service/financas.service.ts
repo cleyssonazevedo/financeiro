@@ -1,71 +1,88 @@
+import { Types, mongo } from 'mongoose';
 import * as moment from 'moment';
+import { FinancaTable } from '../schema/financa.schema';
 
-let financasData: any[] = [
-    {
-        id: '32781738',
-        title: 'Salário',
-        valor: 4230.00,
-        tipo: 0,
-        dataDebito: '01/06/2020'
-    },
-    {
-        id: 'djksaljdkasd',
-        title: 'Conta de Luz',
-        vencimento: '20/06/2020',
-        valor: 250.00,
-        tipo: 1,
-        status: 3,
-        anexo: '/api/download/38120983912038'
-    },
-    {
-        id: '8e9023osaide',
-        title: 'Conta de Água',
-        vencimento: '05/06/2020',
-        valor: 100.00,
-        tipo: 1,
-        status: 2
-    },
-    {
-        id: 'djsalmcdkajdik',
-        title: 'Conta de Telefone',
-        vencimento: '05/06/2020',
-        valor: 180.00,
-        tipo: 1,
-        status: 1
-    },
-    {
-        id: 'djklsadjklasxj8',
-        title: 'Prestação carro',
-        vencimento: '20/06/2020',
-        valor: 600.00,
-        tipo: 1,
-        status: 3
-    },
-];
+export async function getFinancas(idUsuario: string, startDate: moment.Moment, endDate: moment.Moment) {
+    const start = startDate.toDate();
+    const end = endDate.toDate();
 
-export async function getFinancas(startDate: moment.Moment, endDate: moment.Moment) {
-    const total = financasData.reduce((value, item) => {
-        if (item.tipo === 0) {
-            return value + item.valor;
-        } else {
-            return value - item.valor;
-        }
-    }, 0);
+    const list = await FinancaTable.find({
+        idUsuario,
+        $and: [
+            {
+                $or: [
+                    { lancarEm: start },
+                    { lancarEm: { $gt: start } },
+                    { vencimento: start },
+                    { vencimento: { $gt: start } }
+                ]
+            },
+            {
+                $or: [
+                    { lancarEm: end },
+                    { lancarEm: { $lt: end } },
+                    { vencimento: end },
+                    { vencimento: { $lt: end } }
+                ]
+            }
+        ]
+    }).sort([
+        ['lancarEm', 1],
+        ['vencimento', 1]
+    ]);
 
-    return {
-        total,
-        financas: financasData
-    };
+    if (list.length > 0) {
+        const data = list.map((item) => ({
+            id: item.get('id'),
+            title: item.get('title'),
+            valor: item.get('valor'),
+            tipo: item.get('tipo'),
+            status: item.get('status'),
+            vencimento: item.get('vencimento') ? moment(item.get('vencimento')).format('DD/MM/YYYY') : null
+        }));
+
+        const total = data.reduce((value, item) => {
+            if (item.tipo === 0) {
+                return value + item.valor;
+            } else {
+                return value - item.valor;
+            }
+        }, 0);
+
+        return {
+            total,
+            financas: data
+        };
+    } else {
+        return null;
+    }
 }
 
-export async function removeFinanca(idFinanca: string) {
-    const item = financasData.find(({ id }) => id === idFinanca);
+export async function removeFinanca(idUsuario: string, id: string) {
+    await FinancaTable.deleteOne({ _id: Types.ObjectId(id) });
+    return true;
+}
+
+export async function saveFinanca(obj) {
+    const data = await FinancaTable.create(obj);
+    return data.get('id');
+}
+
+export async function marcarPago(idUsuario, id) {
+    const item = await FinancaTable.findById(id);
+
+    console.log(item);
 
     if (item) {
-        financasData = financasData.filter(({ id }) => id !== idFinanca);
-
-        return true;
+        if (item.get('status') === 1) {
+            const vencimento = item.get('vencimento');
+            console.log('Vencimento', vencimento);
+        } else {
+            await FinancaTable.updateOne({
+                _id: id
+            }, { status: 1 });
+        }
     } else {
-        return false;
+        throw new Error('Objeto não encontrado');
     }
 }
