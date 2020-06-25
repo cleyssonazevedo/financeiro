@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Financa } from '../models/financa';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class FinancasService {
@@ -24,7 +25,7 @@ export class FinancasService {
     upload(file: File, fileName: string) {
         const data = new FormData();
         data.append('anexo', file, fileName);
-        return this.http.post('/api/financas/upload', data);
+        return this.http.post<{ id: string }>('/api/financas/upload', data);
     }
 
     delete(id: string) {

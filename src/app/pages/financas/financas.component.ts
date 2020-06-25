@@ -269,7 +269,7 @@ export class FinancasComponent implements OnDestroy {
             if (file) {
                 if (file.size <= 5 * 1024 * 1024 * 1024) {
                     this.api.upload(file, file.name)
-                        .pipe(switchMap((id) => {
+                        .pipe(switchMap(({ id }) => {
                             send.anexo = id;
 
                             return this.api.save(send);
@@ -309,9 +309,10 @@ export class FinancasComponent implements OnDestroy {
     marcarComoPago(item) {
         this.api.marcarComoPago(item.id)
             .subscribe(() => {
-                console.log('Ok');
                 this.getDataFromFinancas(this.startDate, this.endDate);
-            });
+                this.modal.dismissAll();
+            },
+            () => this.toastr.error('Falha ao tentar marcar como pago', 'Falha na aplicação'));
     }
 
     ngOnDestroy() {

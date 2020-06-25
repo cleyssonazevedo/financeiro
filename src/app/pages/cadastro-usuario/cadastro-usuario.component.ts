@@ -48,7 +48,7 @@ export class CadastroUsuarioComponent {
             .subscribe((token) => {
                 this.toastr.success('Usuário criado com sucesso!', 'Criação de usuário');
                 this.login.setData(nome, token);
-                this.router.navigate(['/financas']);
+                this.router.navigate(['/']);
             },
             (err) => this.toastr.error(err.message || 'Falha não especificada ao criar usuário', 'Criação de usuário'));
     }

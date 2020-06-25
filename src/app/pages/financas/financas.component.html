@@ -76,8 +76,15 @@
     <div class="modal-footer justify-content-center">
       <div class="btn-footer">
         <button type="button" class="btn btn-outline-danger" (click)="openModalConfirm(excluirConta)">Excluir</button>
-        <button type="button" class="btn btn-outline-primary">Download</button>
-        <button type="button" class="btn btn-outline-success" (click)="marcarComoPago(modalItem)">Marcar como pago</button>
+        <button type="button" class="btn btn-outline-primary" *ngIf="modalItem.anexo">Download</button>
+        <button type="button" class="btn btn-outline-success" (click)="marcarComoPago(modalItem)">
+          <ng-container *ngIf="modalItem.status !== 1; else voltarOpcaoAnterior">
+            Marcar como pago
+          </ng-container>
+          <ng-template #voltarOpcaoAnterior>
+            Voltar a opção anterior
+          </ng-template>
+        </button>
       </div>
     </div>
   </ng-container>

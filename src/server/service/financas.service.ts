@@ -38,7 +38,8 @@ export async function getFinancas(idUsuario: string, startDate: moment.Moment, e
             valor: item.get('valor'),
             tipo: item.get('tipo'),
             status: item.get('status'),
-            vencimento: item.get('vencimento') ? moment(item.get('vencimento')).format('DD/MM/YYYY') : null
+            vencimento: item.get('vencimento') ? moment(item.get('vencimento')).format('DD/MM/YYYY') : null,
+            anexo: item.get('anexo') || null
         }));
 
         const total = data.reduce((value, item) => {
@@ -76,7 +77,11 @@ export async function marcarPago(idUsuario, id) {
     if (item) {
         if (item.get('status') === 1) {
             const vencimento = item.get('vencimento');
-            console.log('Vencimento', vencimento);
+            const status = moment(vencimento).isAfter(moment()) ? 3 : 2;
+
+            await FinancaTable.updateOne({
+                _id: id
+            }, { status });
         } else {
             await FinancaTable.updateOne({
                 _id: id
